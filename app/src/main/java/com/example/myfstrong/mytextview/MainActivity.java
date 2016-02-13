@@ -1,12 +1,18 @@
 package com.example.myfstrong.mytextview;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
@@ -21,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     String s1;
     String s2;
     String s3;
+    String s4;
+    String s5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,5 +86,27 @@ public class MainActivity extends AppCompatActivity {
 
         //步骤2：设置TextView的内容
         tv3.setText(spanned1);
+
+        //实例4.1:实现部分文字点击事件
+        s4 = "点击【这里】，显示Toast";
+
+        SpannableString ss = new SpannableString(s4);
+        ss.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Toast.makeText(MainActivity.this,"哈哈哈",Toast.LENGTH_SHORT).show();
+            }
+        }, 3, 5, Toast.LENGTH_SHORT);
+
+        //实例4.2:实现部分文字设置颜色
+        ss.setSpan(new ForegroundColorSpan(Color.parseColor("#00ff00")),7,9,Toast.LENGTH_SHORT);
+
+        tv4.setText(ss);
+        tv4.setMovementMethod(LinkMovementMethod.getInstance());
+
+        //实例5：实现走马灯效果
+        s5 = "实例5：实现走马灯效果实例5：实现走马灯效果实例5：实现走马灯效果实例5：实现走马灯效果实例5：实现走马灯效果";
+        tv5.setText(s5);
+
     }
 }
